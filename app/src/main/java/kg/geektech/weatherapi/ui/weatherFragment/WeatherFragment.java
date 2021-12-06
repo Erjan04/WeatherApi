@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +48,7 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
 //        navController = Navigation.findNavController(requireActivity(), R.id.nav_host);
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity()
                 .getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        assert navHostFragment != null;
         navController = navHostFragment.getNavController();
         if (getArguments() != null)
             args = WeatherFragmentArgs.fromBundle(getArguments());
@@ -85,7 +85,7 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
                     er = dao.getWeather().getSys();
                     weather = dao.getWeather();
                     weather__1s = (ArrayList<Weather__1>) dao.getWeather().getWeather();
-                    setWeather();
+                   // setWeather();
                     break;
             }
         });
@@ -96,8 +96,7 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
         binding.cityBtn.setOnClickListener(v
                 -> navController.navigate(R.id.action_weatherFragment_to_findFragment));
         model = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
-        model.setCity(args.getWeatherId());
-        model.fetchTemp();
+        model.fetchTemp(args.getLongitude(),args.getLatitude());
     }
 
     @SuppressLint("SetTextI18n")

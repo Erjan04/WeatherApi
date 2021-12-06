@@ -15,18 +15,21 @@ public class Resource<R> {
         this.data = data;
         this.msg = msg;
     }
-    public static <R>Resource<R> success(R data){
-        return new Resource<>(Status.SUCCESS,data,null);
+
+    public static <R> Resource<R> success(R data) {
+        return new Resource<>(Status.SUCCESS, data, null);
     }
-    public static <R>Resource<R> loading(){
-        return new Resource<>(Status.LOADING,null,null);
+
+    public static <R> Resource<R> loading() {
+        return new Resource<>(Status.LOADING, null, null);
     }
-    public static <R>Resource<R> error(String msg, @Nullable R data){
-        return new Resource<>(Status.ERROR,data,msg);
+
+    public static <R> Resource<R> error(String msg, @Nullable R data) {
+        return new Resource<>(Status.ERROR, data, msg);
     }
 
 
-    public enum Status{
+    public enum Status {
         SUCCESS,
         LOADING,
         ERROR

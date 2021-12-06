@@ -7,31 +7,12 @@
     android:orientation="vertical"
     tools:context=".ui.findFragment.FindFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInput"
+    <fragment
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:endIconMode="clear_text">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:maxLength="20" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_find"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#01579B"
-        app:cornerRadius="4dp"
-        android:text="Отобразить погоду"
-        android:layout_marginHorizontal="20dp"
-        tools:ignore="HardcodedText" />
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
 
 </LinearLayout>

@@ -13,11 +13,16 @@
         <action
             android:id="@+id/action_weatherFragment_to_findFragment"
             app:destination="@id/findFragment" />
-        <argument
-            android:name="weatherId"
-            android:defaultValue="Bishkek"
+        <argument android:name="latitude"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="40.7143"
+            />
+        <argument android:name="longitude"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="-74.006"
+            />
     </fragment>
 
     <fragment
@@ -29,10 +34,14 @@
             android:id="@+id/action_findFragment_to_weatherFragment"
             app:destination="@id/weatherFragment">
 
-            <argument
-                android:name="weatherId"
+            <argument android:name="latitude"
                 app:argType="string"
-                app:nullable="false" />
+                app:nullable="true"
+                />
+            <argument android:name="longitude"
+                app:argType="string"
+                app:nullable="true"
+                />
 
         </action>
     </fragment>
