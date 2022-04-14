@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 
@@ -30,26 +28,19 @@ import kg.geektech.weatherapi.databinding.FragmentWeatherBinding;
 @AndroidEntryPoint
 public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
 
-    private NavController navController;
     private WeatherViewModel model;
     private Wind wind;
     private Main main;
     private WeatherFragmentArgs args;
     private Weather weather;
-    private Sys er;
+    private Sys sys;
     private ArrayList<Weather__1> weather__1s = new ArrayList<>();
     @Inject
     WeatherDao dao;
 
-
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        navController = Navigation.findNavController(requireActivity(), R.id.nav_host);
-        NavHostFragment navHostFragment = (NavHostFragment) requireActivity()
-                .getSupportFragmentManager().findFragmentById(R.id.nav_host);
-        assert navHostFragment != null;
-        navController = navHostFragment.getNavController();
         if (getArguments() != null)
             args = WeatherFragmentArgs.fromBundle(getArguments());
     }
@@ -60,14 +51,29 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
     }
 
     @Override
+    protected void setupListeners() {
+
+    }
+
+    @Override
     protected void setupObservers() {
+        observeModel();
+        observeWeather();
+    }
+
+    private void observeModel() {
+        model = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+        model.fetchTemp(args.getLongitude(), args.getLatitude());
+    }
+
+    private void observeWeather() {
         model.tempLiveData.observe(getViewLifecycleOwner(), response -> {
             switch (response.status) {
                 case SUCCESS:
                     wind = response.data.getWind();
                     weather = response.data;
+                    sys = response.data.getSys();
                     main = response.data.getMain();
-                    er = response.data.getSys();
                     weather__1s = (ArrayList<Weather__1>) response.data.getWeather();
                     binding.progress.setVisibility(View.GONE);
                     setWeather();
@@ -82,10 +88,10 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
                     binding.progress.setVisibility(View.GONE);
                     wind = dao.getWeather().getWind();
                     main = dao.getWeather().getMain();
-                    er = dao.getWeather().getSys();
+                    sys = dao.getWeather().getSys();
                     weather = dao.getWeather();
                     weather__1s = (ArrayList<Weather__1>) dao.getWeather().getWeather();
-                   // setWeather();
+                    setWeather();
                     break;
             }
         });
@@ -95,15 +101,13 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
     protected void setupUI() {
         binding.cityBtn.setOnClickListener(v
                 -> navController.navigate(R.id.action_weatherFragment_to_findFragment));
-        model = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
-        model.fetchTemp(args.getLongitude(),args.getLatitude());
     }
 
     @SuppressLint("SetTextI18n")
     private void setWeather() {
         binding.weatherNowTv.setText(weather__1s.get(0).getMain());
         Glide.with(requireContext())
-                .load("https://openweathermap.org/img/wn/" + weather__1s.get(0).getIcon() + ".png")
+                .load("https://openweather0map.org/img/wn/" + weather__1s.get(0).getIcon() + ".png")
                 .override(100, 100)
                 .into(binding.weatherIv);
         binding.tempmaxTv.setText(String.valueOf((int) Math.round(main.getTempMax())));

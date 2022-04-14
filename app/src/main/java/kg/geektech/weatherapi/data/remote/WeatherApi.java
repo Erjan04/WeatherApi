@@ -1,6 +1,5 @@
 package kg.geektech.weatherapi.data.remote;
 
-
 import kg.geektech.weatherapi.data.models.Weather;
 import retrofit2.Call;
 import retrofit2.http.GET;

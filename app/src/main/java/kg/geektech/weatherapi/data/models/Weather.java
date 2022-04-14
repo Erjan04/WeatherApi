@@ -5,12 +5,14 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
+
 import kg.geektech.weatherapi.data.local.convertor.CloudConvertor;
+import kg.geektech.weatherapi.data.local.convertor.CoordConvertor;
 import kg.geektech.weatherapi.data.local.convertor.MainConvertor;
 import kg.geektech.weatherapi.data.local.convertor.SysConvertor;
 import kg.geektech.weatherapi.data.local.convertor.Weather1Convertor;
@@ -19,9 +21,10 @@ import kg.geektech.weatherapi.data.local.convertor.WindConvertor;
 @Entity
 public class Weather implements Serializable {
 
-//    @SerializedName("coord")
-//    @Expose
-//    private Coord coord;
+    @SerializedName("coord")
+    @Expose
+    @TypeConverters({CoordConvertor.class})
+    private Coord coord;
     @SerializedName("weather")
     @Expose
     @TypeConverters({Weather1Convertor.class})
@@ -65,13 +68,13 @@ public class Weather implements Serializable {
     @Expose
     private Integer cod;
 
-//    public Coord getCoord() {
-//        return coord;
-//    }
-//
-//    public void setCoord(Coord coord) {
-//        this.coord = coord;
-//    }
+    public Coord getCoord() {
+        return coord;
+    }
+
+    public void setCoord(Coord coord) {
+        this.coord = coord;
+    }
 
     public List<Weather__1> getWeather() {
         return weather;

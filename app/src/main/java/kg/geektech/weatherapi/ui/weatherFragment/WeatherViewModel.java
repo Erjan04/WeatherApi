@@ -13,12 +13,9 @@ import kg.geektech.weatherapi.data.repository.MainRepository;
 @HiltViewModel
 public class WeatherViewModel extends ViewModel {
 
-    private MainRepository repository;
+    private final MainRepository repository;
     public LiveData<Resource<Weather>> tempLiveData;
 
-//    public void setCity(String city) {
-//        this.city = city;
-//    }
     @Inject
     public WeatherViewModel(MainRepository repository){
         this.repository = repository;

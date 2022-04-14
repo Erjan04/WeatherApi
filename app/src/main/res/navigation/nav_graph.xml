@@ -32,16 +32,17 @@
         tools:layout="@layout/fragment_find">
         <action
             android:id="@+id/action_findFragment_to_weatherFragment"
-            app:destination="@id/weatherFragment">
+            app:destination="@id/weatherFragment"
+            app:popUpTo="@id/nav_graph.xml">
 
-            <argument android:name="latitude"
+            <argument
+                android:name="latitude"
                 app:argType="string"
-                app:nullable="true"
-                />
-            <argument android:name="longitude"
+                app:nullable="true" />
+            <argument
+                android:name="longitude"
                 app:argType="string"
-                app:nullable="true"
-                />
+                app:nullable="true" />
 
         </action>
     </fragment>
